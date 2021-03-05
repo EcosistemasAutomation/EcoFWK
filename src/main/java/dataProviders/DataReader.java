@@ -25,7 +25,7 @@ public class DataReader {
 			DataTypes[] dataTypes=gson.fromJson(bufferReader,DataTypes[].class);
 			return Arrays.asList(dataTypes);
 		} catch(FileNotFoundException o) {
-			throw new RuntimeException("Json file or path not found. "+o);
+			throw new RuntimeException("__Json_file_or_path_not_found__"+o);
 		} finally {	try {if(bufferReader!=null)bufferReader.close();
 			} catch(IOException ignore) {}}}
 	

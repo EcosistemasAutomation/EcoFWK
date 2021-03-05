@@ -13,7 +13,7 @@ public class ConfigReader {
 	
 	private Properties property;
 	private final String pathFile="configs\\config.properties";
-	private String message="Error with the file o the value. Verify >> ";
+	private String message="__Error_with_the_file_or_the_value__Verify__>>_";
 	
 	public ConfigReader() {
 		BufferedReader lector;
@@ -27,27 +27,27 @@ public class ConfigReader {
 				e.printStackTrace();}
 		} catch(FileNotFoundException e) {
 			e.printStackTrace();
-			throw new RuntimeException(message+"ConfigReader method.");}}
+			throw new RuntimeException(message+"_ConfigReader_method__");}}
 	
 	public String getDriverPath() {
 		String rutaCHR=property.getProperty("driverPath");
 		if(rutaCHR!=null) return rutaCHR;
-		else throw new RuntimeException(message+"Path to the file.");}
+		else throw new RuntimeException(message+"_Path_to_the_file__");}
 	
 	public String getWebDriver() {
 		String driverCHR=property.getProperty("webdriver");
 		if(driverCHR!=null) return driverCHR;
-		else throw new RuntimeException(message+"WebDriver.");}
+		else throw new RuntimeException(message+"_WebDriver__");}
 	
 	public long getWaitTime() {
 		String time=property.getProperty("waitTime");
 		if(time!=null) return Long.parseLong(time);
-		else throw new RuntimeException(message+"time wait value.");}
+		else throw new RuntimeException(message+"__time_wait_value__");}
 	
 	public String getURL() {
 		String url=property.getProperty("URL");
 		if(url!=null) return url;
-		else throw new RuntimeException(message+" URL.");}
+		else throw new RuntimeException(message+"_URL__");}
 	
 	public Boolean getBrowserSize() {
 		String tamaño=property.getProperty("maxWin");
@@ -55,28 +55,40 @@ public class ConfigReader {
 		return true;}
 	
 	public Environment getAmbiente() {
-		String scope=property.getProperty("ambiente");
-		if(scope==null|| scope.equalsIgnoreCase("local")) return Environment.LOCAL;
-		else if(scope.equals("remote")) return Environment.REMOTO;
+		String scope=property.getProperty("environment");System.out.println(">>SCOPE>>"+scope);
+		if(scope.equalsIgnoreCase("local")) return Environment.LOCAL;
+		else if(scope.equalsIgnoreCase("remote")) return Environment.REMOTO;
 		else if(scope.equalsIgnoreCase("local_api"))return Environment.LOCAL_API;
 		else if(scope.equalsIgnoreCase("remoto_api"))return Environment.REMOTO_API;
-		else throw new RuntimeException(message+"error wiht the environment.");}
+		else if(scope.equalsIgnoreCase("local_headless"))return Environment.LOCAL_HEADLESS;
+		else if(scope.equalsIgnoreCase("remoto_headless"))return Environment.REMOTO_HEADLESS;
+		else throw new RuntimeException(message+"_error_wiht_the_environment__");}
 	
 	public DriversType getBrowser() {
 		String driverType=property.getProperty("browser");
-		if(driverType==null||driverType.equals("chrome")) return DriversType.CHROME;
+		if(driverType.equalsIgnoreCase("chrome")) return DriversType.CHROME;
 		else if(driverType.equalsIgnoreCase("firefox")) return DriversType.FIREFOX;
 		else if(driverType.equalsIgnoreCase("explorer")) return DriversType.INTERNETEXPLORER;
-		else throw new RuntimeException(message+"error with the driver type.");}
+		else throw new RuntimeException(message+"_error_with_the_driver_type__");}
 	
 	public String getConfigReporte() {
 		String report=property.getProperty("reportConfigPath");
 		if(report!=null)return report;
-		else throw new RuntimeException(message+"Error with the Config Reporte path.");}
+		else throw new RuntimeException(message+"_error_with_the-ConfigReporte_path__");}
 	
 	public String getTestDataPath() {
 		String testDataPath=property.getProperty("testDataPath");
 		if(testDataPath!=null)return testDataPath;
-		else throw new RuntimeException(message+"error test data path not specified.");}
+		else throw new RuntimeException(message+"_error_testDataPath_not_specified__");}
+	
+	public String getReportPath() {
+		String reportPath=property.getProperty("reportPath");
+		if(reportPath!=null)return reportPath;
+		else throw new RuntimeException(message+"_error_reportPath_not_specified__");}
+	
+	public String getSceenshotPath() {
+		String screenshotPath=property.getProperty("reportScreenshotPath");
+		if(screenshotPath!=null)return screenshotPath;
+		else throw new RuntimeException(message+"_error_reportScreenshotPath_not_specified__");}
 	
 }

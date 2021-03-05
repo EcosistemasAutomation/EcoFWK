@@ -1,5 +1,6 @@
 package runnersClass;
 
+import java.io.File;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -12,12 +13,13 @@ import com.cucumber.listener.Reporter;
 import cucumber.api.CucumberOptions;
 import cucumber.api.junit.Cucumber;
 //import administradores.LectorArchivos;
+import managers.FileReaderMng;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
 		features="./src/test/resources",
 		glue={"stepsDefinition"},
-		tags={"@End2EndTest"},
+		tags={"@api2"},
 		plugin={"pretty","com.cucumber.listener.ExtentCucumberFormatter:",
 				"json:target/reportesCucumber/reporteJSON/rptJSON.json",
 		}
@@ -32,12 +34,12 @@ public class RunnerAPITest {
 		String currentDate = formatDate.format(date);
 		String fileName="reporte_"+(((currentDate.replace("/","")).replace(":","")).replace(" ","_"));
         ExtentProperties extentProperties=ExtentProperties.INSTANCE;
-        extentProperties.setReportPath("target/reportesCucumber/reporteExtent/"+fileName+".html"); //
+        extentProperties.setReportPath("target/reportesCucumber/reporteExtent/"+fileName+".html");
     }
 	
 	@AfterClass
 	public static void writeExtentReport() {
-		//Reporter.loadXMLConfig(new File(LectorArchivos.getInstance().getConfigReader().getConfigReporte()));
+			Reporter.loadXMLConfig(new File(FileReaderMng.getInstance().getConfigReader().getConfigReporte()));
 			Reporter.setSystemInfo("User Name", System.getProperty("user.name"));
 			Reporter.setSystemInfo("Time Zone", System.getProperty("user.timezone"));
 			Reporter.setSystemInfo("Machine", "Windows 10"+"64 Bit");

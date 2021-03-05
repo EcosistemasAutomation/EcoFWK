@@ -18,7 +18,7 @@ import managers.FileReaderMng;
 @CucumberOptions(
 		features="./src/test/resources/",
 		glue={"stepsDefinition"},
-		tags={"@e2e"},
+		tags={"@e2e_1"},
 		plugin={"pretty","com.cucumber.listener.ExtentCucumberFormatter:",
 				"json:target/reportesCucumber/reporteJSON/rptJSON.json",
 		}
@@ -26,6 +26,7 @@ import managers.FileReaderMng;
 
 public class RunnerTest {
 
+	private static String reportPath=FileReaderMng.getInstance().getConfigReader().getReportPath();
 	@BeforeClass
     public static void setup() {
     	Date date=new Date();
@@ -33,7 +34,7 @@ public class RunnerTest {
 		String currentDate = formatDate.format(date);
 		String fileName="reporte_"+(((currentDate.replace("/","")).replace(":","")).replace(" ","_"));
         ExtentProperties extentProperties=ExtentProperties.INSTANCE;
-        extentProperties.setReportPath("target/reportesCucumber/reporteExtent/"+fileName+".html"); //
+        extentProperties.setReportPath(reportPath+fileName+".html");
     }
 	
 	@AfterClass

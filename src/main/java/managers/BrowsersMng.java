@@ -6,6 +6,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 
@@ -28,45 +29,64 @@ public class BrowsersMng {
 		waitTime=FileReaderMng.getInstance().getConfigReader().getWaitTime();}
 	
 	public WebDriver getDrv() {
-		if(ambType==Environment.LOCAL){driver=initDrv();System.out.println("__getDrv__local_enviroment__");}
-		else if(ambType==Environment.LOCAL_API)System.out.println("__getDrv__api_enviroment__local_api__");
-		else if(ambType==Environment.REMOTO){driver=initDrv();System.out.println("__getDrv__remote_enviroment__");}
-		else if(ambType==Environment.REMOTO_API)System.out.println("__getDrv__api_enviroment__remoto_api__");
-		else throw new RuntimeException("__error_getDrv_Verificar__");
+		if(ambType==Environment.LOCAL){driver=initDrv();System.out.println("__getDrv__local_environment__");}
+		else if(ambType==Environment.LOCAL_API)System.out.println("__getDrv__api_environment__local_api__");
+		else if(ambType==Environment.LOCAL_HEADLESS){driver=initDrv();System.out.println("__getDrv__local_headless_environment__");}
+		else if(ambType==Environment.REMOTO){driver=initDrv();System.out.println("__getDrv__remote_environment__");}
+		else if(ambType==Environment.REMOTO_API)System.out.println("__getDrv__api_environment__remoto_api__");
+		else if(ambType==Environment.REMOTO_HEADLESS){System.out.println("__getDrv__remote_headless_environment__");}
+		else throw new RuntimeException("__error_getDrv_Verify__");
 		return driver;}
 	
 	private WebDriver initDrv() {
 		switch(ambType) {
 			case LOCAL:driver=createLocal();System.out.println("__initDrv__create_local_drv__");
 				break;
-			case LOCAL_API:System.out.println("__crearDrv__local_api__");
+			case LOCAL_API:System.out.println("__create_Drv__local_api__");
+				break;
+			case LOCAL_HEADLESS:createLocalHeadless();System.out.println("__create_Drv__local_headless__");
 				break;
 			case REMOTO:driver=createRemoto();System.out.println("__initDrv__create_remote_drv__");
 				break;
-			case REMOTO_API:System.out.println("__crearDrv__remoto_api__");
+			case REMOTO_API:System.out.println("__create_Drv__remoto_api__");
+				break;
+			case REMOTO_HEADLESS:System.out.println("__create_Drv__remoto_headless__");
 				break;
 			default:System.out.println("__verify__ambType_case__");}
 		return driver;}
 	
 	private WebDriver createRemoto() { 
-		throw new RuntimeException("__verify__crearRemoto_WebDriver__");}
+		throw new RuntimeException("__verify__createRemoto_WebDriver__");}
 	
 	private WebDriver createLocal() {
 		switch(brwType) {
 			case FIREFOX:System.setProperty(webDrv,webDrvPath);
-				driver=new FirefoxDriver();System.out.println("driver new FirefoxFriver");
+				driver=new FirefoxDriver();System.out.println("__driver_new_FirefoxFriver__");
 				break;
 			case INTERNETEXPLORER:System.setProperty(webDrv,webDrvPath);
-				driver=new InternetExplorerDriver();System.out.println("driver new InternetExplorerDriver");
+				driver=new InternetExplorerDriver();System.out.println("__driver_new_InternetExplorerDriver__");
 				break;
 			case CHROME:System.setProperty(webDrv,webDrvPath);
-				driver=new ChromeDriver();System.out.println("driver new ChromeDriver");
+				driver=new ChromeDriver();System.out.println("__driver_new_ChromeDriver__");
 				break;
 			default:System.out.println("__verify__brwType_case__");}
 		if(brwSize)driver.manage().timeouts().implicitlyWait(waitTime,TimeUnit.SECONDS);
 		return driver;}
 	
+	private WebDriver createLocalHeadless() {
+		switch(brwType) {
+			case CHROME:System.setProperty(webDrv,webDrvPath);
+				ChromeOptions chromeOptions=new ChromeOptions();
+				chromeOptions.addArguments("headless");
+				chromeOptions.addArguments("disable-gpu");
+				chromeOptions.addArguments("window-size=1280,800");
+				chromeOptions.addArguments("ignore-certificate-errors");
+				driver=new ChromeDriver(chromeOptions);System.out.println("__driver_new_ChromeDriver_Headless__");
+				break;
+			default:System.out.println("__verify__brwType_Headless_case__");}
+		return driver;}
+	
 	public void closeBrw() {
-		if(ambType==Environment.LOCAL_API||ambType==Environment.REMOTO_API)System.out.println("__cerrarBrw__without_browser__");
+		if(ambType==Environment.LOCAL_API||ambType==Environment.REMOTO_API)System.out.println("__closeBrw__without_browser__");
 		else {driver.close();driver.quit();}}
 }

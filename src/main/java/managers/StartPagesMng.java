@@ -3,9 +3,10 @@ package managers;
 import org.openqa.selenium.WebDriver;
 
 import base.GlobalParams;
-import pageObjects.PageEnd2End;
-import pageObjects.PageHome;
-import pageObjects.PageCheck;
+import base.GlobalRest;
+import pageObjects.PageExampleE2E;
+import pageObjects.PageExampleHome;
+import pageObjects.PageExampleCheck;
 
 public class StartPagesMng {
 
@@ -14,19 +15,22 @@ public class StartPagesMng {
 		this.driver=driver;}
 	
 	// Initialization page
-	private PageEnd2End end2end;
-	private PageHome home;
-	private PageCheck check;
-	public PageEnd2End getEnd2End() {
-		return(end2end==null)?end2end=new PageEnd2End(driver):end2end;}
-	public PageHome getHome() {
-		return(home==null)?home=new PageHome(driver):home;}
-	public PageCheck getCheck() {
-		return(check==null)?check=new PageCheck(driver):check;}
+	private PageExampleE2E end2end;
+	private PageExampleHome home;
+	private PageExampleCheck check;
+	public PageExampleE2E getEnd2End() {
+		return(end2end==null)?end2end=new PageExampleE2E(driver):end2end;}
+	public PageExampleHome getHome() {
+		return(home==null)?home=new PageExampleHome(driver):home;}
+	public PageExampleCheck getCheck() {
+		return(check==null)?check=new PageExampleCheck(driver):check;}
 	
 	// Initialization base
 	private GlobalParams params;
+	private GlobalRest rest;
 	public GlobalParams getGlobalParams() {
 		return(params==null)?params=new GlobalParams():params;}
-	
+	public GlobalRest getGlobalRest() {
+		return(rest==null)?rest=new GlobalRest():rest;}
+
 }
