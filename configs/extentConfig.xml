@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<extentreports>
+	<configuration>
+		<theme>dark</theme>	<!-- standard, dark -->
+		<encoding>UTF-8</encoding>	<!-- defaults to UTF-8 -->
+		<protocol>https</protocol>	<!-- defaults to https -->
+		<documentTitle>Eco-Framework</documentTitle>
+		<reportName>Eco-Report</reportName>
+		<dateFormat>yyyy-MM-dd</dateFormat>	<!-- defaults to yyyy-MM-dd -->
+		<timeFormat>HH:mm:ss</timeFormat>	<!-- defaults to HH:mm:ss -->
+		<scripts>
+				<![CDATA[
+				$(document).ready(function() {
+
+				});
+				]]>
+		</scripts>
+		<styles>
+				<![CDATA[
+
+				]]>
+		</styles>
+
+	</configuration>
+</extentreports>
